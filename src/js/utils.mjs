@@ -21,3 +21,14 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+// return param from URL when requested, defaults to product param
+export function getParam(param) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  if (param == null) {
+    return urlParams.get("product");
+  } else {
+    return urlParams.get(param);
+  }
+}
