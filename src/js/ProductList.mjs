@@ -3,14 +3,28 @@ import { renderListWithTemplate } from "./utils.mjs";
 //generate list of product cards in HTML from an array
 
 function productCardTemplate(product) {
-    if (product.Id == "989CG" || product.Id == "880RT") {
-        return "";
-    }
+    const path = window.location.pathname;
+    const isHomePage = path === "/" || path === "/index.html";
+
+    // only 4 products on home page
+    if (isHomePage) {
+        return `
+    <li class="product-card">
+        <a href="/product_pages/?product=${product.Id}">
+        <img src="${product.Images.PrimaryLarge}" alt="Image of ${product.Name}">
+        <h3 class="card__brand">${product.Brand.Name}</h3>
+        <h2 class="card__name">${product.NameWithoutBrand}</h2>
+        <p class="product-card__price">
+            <span class="final-price">$${product.FinalPrice}</span>
+        </p>
+      </a>
+    </li>`
+    } 
     else {
         return `
     <li class="product-card">
-        <a href="product_pages/?product=${product.Id}">
-        <img src="${product.Image}" alt="Image of ${product.Name}">
+        <a href="/product_pages/?product=${product.Id}">
+        <img src="${product.Images.PrimaryMedium}" alt="Image of ${product.Name}">
         <h3 class="card__brand">${product.Brand.Name}</h3>
         <h2 class="card__name">${product.NameWithoutBrand}</h2>
         <p class="product-card__price">
@@ -33,7 +47,18 @@ export default class ProductList {
 
     //dataSource returns promise, use await to resolve
     async init() {
-        const list = await this.dataSource.getData();
+        let list = await this.dataSource.getData();
+
+        const path = window.location.pathname;
+        const isHomePage = path === "/" || path === "/index.html";
+
+        // only 4 products on home page
+        if (isHomePage) {
+            list = list.slice(0, 4);
+        }
+
+        //print data array to console
+        console.log("Fetched products:", list); 
         this.renderList(list);
     }
 
