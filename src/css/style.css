@@ -241,6 +241,22 @@ button {
   grid-column: 3;
 }
 
+/* Start Product Icon Links */
+
+.product-icon-links {
+  width: 80%;
+  margin: 4rem auto 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  justify-items: center;
+}
+
+.product-icon-links .caption-align {
+  margin-left: 20px;
+}
+
+/* End Product Icon Links */
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
