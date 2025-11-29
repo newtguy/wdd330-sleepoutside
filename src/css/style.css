@@ -283,6 +283,9 @@ button {
   text-align: right;
   padding-right: 13%;
 }
+.hidden {
+  display: none;
+}
 /* Start Product Icon Links */
 
 .product-icon-links {

@@ -61,6 +61,12 @@ export default class ShoppingCart {
         if (this.totalElement) {
             const total = this.calculateTotal().toFixed(2);
             this.totalElement.textContent = `Total: $${total}`;
+            if (this.items.length > 0) {
+                this.totalElement.classList.remove("hidden");
+            }
+            else {
+                this.totalElement.classList.add("hidden");
+            }
         }
     }
 
