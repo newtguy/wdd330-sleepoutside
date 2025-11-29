@@ -1,4 +1,20 @@
 import { getLocalStorage } from "./utils.mjs";
+import ExternalServices from "./ExternalServices.mjs";
+
+const Service = new ExternalServices();
+
+// takes the items currently stored in the cart (localstorage) and 
+// returns them in a simplified form.
+export function packageItems(items) {
+    // convert the list of products from localStorage to the simpler form required for the checkout process.
+    // An Array.map would be perfect for this process.
+    return items.map(item => ({
+        id: item.Id,
+        price: item.FinalPrice,
+        name: item.Name,
+        quantity: item.Quantity || 1
+    }));
+}
 
 export default class CheckoutProcess {
     constructor(key, outputSelector) {
@@ -51,4 +67,33 @@ export default class CheckoutProcess {
         if (shippingElement) shippingElement.innerText = `$${this.shipping.toFixed(2)}`;
         if (totalPriceElement) totalPriceElement.innerText = `$${this.orderTotal.toFixed(2)}`;
     }
+
+    async checkout(form) {
+        // get the form element data by the form name
+        const formElement = document.querySelector(form);
+        // convert the form data to a JSON order object using the formDataToJSON function
+        const order = ExternalServices.formDataToJSON(formElement);
+        // populate the JSON order object with the order Date, orderTotal, tax, shipping, and list of items
+        const [year, month] = order.expiration.split("-");
+        order.expiration = `${month}/${year.slice(-2)}`;
+        order.orderDate = new Date().toISOString();
+        order.orderTotal = this.orderTotal;
+        order.tax = this.tax;
+        order.shipping = this.shipping;
+        order.items = packageItems(this.items);
+
+        console.log(order);
+
+        try {
+            const data = await Service.checkout(order);
+            console.log('Server response:', data);
+        } catch (error) {
+            console.error('Checkout failed:', error);
+            throw error;
+        }
+    }
 }
+
+
+
+

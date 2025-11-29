@@ -14,5 +14,5 @@ const cart = new ShoppingCart(cartElement, "so-cart", totalElement);
 const checkoutButton = document.getElementById("checkout-button");
 
 checkoutButton.addEventListener("click", () => {
-    window.location.href = "/checkout/index.html";
+  window.location.href = "/checkout/index.html";
 });
