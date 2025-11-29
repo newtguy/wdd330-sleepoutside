@@ -26,7 +26,7 @@
             <input
               type="text"
               required
-              name="first"
+              name="fname"
               autocomplete="given-name"
               placeholder="Taylor"
             />
@@ -36,7 +36,7 @@
             <input
               type="text"
               required
-              name="last"
+              name="lname"
               autocomplete="family-name"
               placeholder="Jones"
             />
@@ -49,7 +49,7 @@
               type="text"
               required
               pattern="[A-Za-z0-9\s.,#\-]+"
-              name="address1"
+              name="street"
               autocomplete="address-line1"
               placeholder="123 Yankee St"
             />
@@ -96,14 +96,19 @@
               type="text"
               required
               pattern="\d{4}[\- ]?\d{4}[\- ]?\d{4}[\- ]?\d{4}"
-              name="cc"
+              name="cardNumber"
               autocomplete="cc-number"
               placeholder="XXXX-XXXX-XXXX-XXXX"
             />
           </label>
           <label>
             Expiration Date:
-            <input type="month" required name="exp" autocomplete="cc-exp" />
+            <input
+              type="month"
+              required
+              name="expiration"
+              autocomplete="cc-exp"
+            />
           </label>
           <label>
             Security Code:
@@ -111,7 +116,7 @@
               type="text"
               required
               pattern="\d{3,4}"
-              name="cvv"
+              name="code"
               autocomplete="cc-csc"
               placeholder="123"
             />
