@@ -8,7 +8,7 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
     <script src="../js/checkout.js" type="module"></script>
   </head>
 
@@ -16,9 +16,118 @@
     <header class="divider"></header>
 
     <main class="divider">
-      <section class="products">
-        <h2>Review & Place your Order</h2>
-      </section>
+      <section class="products"></section>
+      <h2 class="checkout-title">Review & Place your Order</h2>
+      <div class="checkout-container">
+        <form class="checkout-form" method="get" action="thankyou.html">
+          <!-- Customer Name -->
+          <label>
+            First Name:
+            <input
+              type="text"
+              required
+              name="first"
+              autocomplete="given-name"
+              placeholder="Taylor"
+            />
+          </label>
+          <label>
+            Last Name:
+            <input
+              type="text"
+              required
+              name="last"
+              autocomplete="family-name"
+              placeholder="Jones"
+            />
+          </label>
+
+          <!-- Address -->
+          <label>
+            Street Address:
+            <input
+              type="text"
+              required
+              pattern="[A-Za-z0-9\s.,#\-]+"
+              name="address1"
+              autocomplete="address-line1"
+              placeholder="123 Yankee St"
+            />
+          </label>
+          <label>
+            City:
+            <input
+              type="text"
+              required
+              pattern="[A-Za-z\s\-]+"
+              name="city"
+              autocomplete="address-level2"
+              placeholder="Las Vegas"
+            />
+          </label>
+          <label>
+            State:
+            <input
+              type="text"
+              required
+              pattern="[A-Z]{2}"
+              name="state"
+              autocomplete="address-level1"
+              placeholder="NV"
+            />
+          </label>
+          <label>
+            Zip Code:
+            <input
+              type="text"
+              id="zip"
+              required
+              pattern="\d{5}(-\d{4})?"
+              name="zip"
+              autocomplete="postal-code"
+              placeholder="88921"
+            />
+          </label>
+
+          <!-- Payment Info -->
+          <label>
+            Credit Card Number:
+            <input
+              type="text"
+              required
+              pattern="\d{4}[\- ]?\d{4}[\- ]?\d{4}[\- ]?\d{4}"
+              name="cc"
+              autocomplete="cc-number"
+              placeholder="XXXX-XXXX-XXXX-XXXX"
+            />
+          </label>
+          <label>
+            Expiration Date:
+            <input type="month" required name="exp" autocomplete="cc-exp" />
+          </label>
+          <label>
+            Security Code:
+            <input
+              type="text"
+              required
+              pattern="\d{3,4}"
+              name="cvv"
+              autocomplete="cc-csc"
+              placeholder="123"
+            />
+          </label>
+
+          <button type="submit">Checkout</button>
+        </form>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <p>Subtotal: <span id="subtotal"></span></p>
+          <p>Tax: <span id="tax"></span></p>
+          <p>Shipping: <span id="shipping"></span></p>
+          <p>Total: <span id="total"></span></p>
+        </div>
+      </div>
     </main>
 
     <footer></footer>
