@@ -4,9 +4,15 @@ import ShoppingCart from "./ShoppingCart.mjs";
 loadHeaderFooter();
 
 // DOM elements
-const cartEl = document.querySelector(".product-list");
-const totalEl = document.querySelector(".cart-total");
+const cartElement = document.querySelector(".product-list");
+const totalElement = document.querySelector(".cart-total");
 
 // Initialize the cart
-const cart = new ShoppingCart(cartEl, "so-cart", totalEl);
-cart.init();
+const cart = new ShoppingCart(cartElement, "so-cart", totalElement);
+
+// Checkout
+const checkoutButton = document.getElementById("checkout-button");
+
+checkoutButton.addEventListener("click", () => {
+    window.location.href = "/checkout/index.html";
+});
