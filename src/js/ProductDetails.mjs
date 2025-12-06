@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
 
 export default class ProductDetails {
 
@@ -27,13 +27,21 @@ export default class ProductDetails {
         if (!productId) return;
         const product = await this.dataSource.findProductById(productId);
         this.addProductToCart(product);
-        //alert(`${product.NameWithoutBrand} added to cart!`);
+        alertMessage(`${product.NameWithoutBrand} added to cart!`);
     }
 
     // grab ls contents or make empty array ; cart expects ls to contain array
     addProductToCart(product) {
         const cartItems = getLocalStorage("so-cart") || [];
-        cartItems.push(product);
+        
+        const itemExists = cartItems.find(item => item.Id === product.Id);
+
+        if (itemExists) {
+            itemExists.Quantity = (itemExists.Quantity || 1) + 1;
+        } else {
+            product.Quantity = 1;
+            cartItems.push(product);
+        }
         setLocalStorage("so-cart", cartItems);
     }
 

@@ -1,10 +1,11 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
-function convertToJson(response) {
+async function convertToJson(response) {
+  const data = await response.json();
   if (response.ok) {
-    return response.json();
+    return data;
   } else {
-    throw new Error("Bad responseponse");
+    throw { name: "servicesError", message: data };
   }
 }
 
@@ -15,15 +16,15 @@ export default class ExternalServices {
 
   async getData() {
     if (!this.category) throw new Error("No category provided!");
-    const responseponse = await fetch(`${baseURL}products/search/${this.category}`);
-    const data = await convertToJson(responseponse);
-    return data.responseult;
+    const response = await fetch(`${baseURL}products/search/${this.category}`);
+    const data = await convertToJson(response);
+    return data.Result;
   }
 
   async findProductById(id) {
-    const responseponse = await fetch(`${baseURL}product/${id}`);
-    const data = await convertToJson(responseponse);
-    return data.responseult; // or just 'data' if API returns the single product object
+    const response = await fetch(`${baseURL}product/${id}`);
+    const data = await convertToJson(response);
+    return data.Result; // or just 'data' if API returns the single product object
   }
 
   async checkout(orderData) {

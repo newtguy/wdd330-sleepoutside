@@ -92,7 +92,15 @@ export default class ShoppingCart {
     }
 
     removeItem(id) {
-        this.items = this.items.filter(item => item.Id !== id);
+        const item = this.items.find(item => item.Id === id);
+        if (!item) return;
+        //decrease quantity if more than 1, else remove completely
+        if (item.Quantity > 1) {
+            item.Quantity -= 1;
+        } else {
+            this.items = this.items.filter(item => item.Id !== id);
+        }
+
         this.saveCart();
         this.render();
     }

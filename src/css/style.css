@@ -401,6 +401,25 @@ button {
 }
 
 /* End Checkout Form  */
+/* ALERTS */
+
+.alert {
+  position: relative;
+  margin: 5px 0;
+  padding: 0.1rem;
+  background-color: var(--primary-color);
+  border-left: 5px solid var(--tertiary-color);
+  color: var(--dark-grey);
+}
+
+.alert span {
+  position: absolute;
+  right: 1rem;
+  cursor: pointer;
+  color: var(--dark-grey);
+}
+
+/* End ALERT */
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
